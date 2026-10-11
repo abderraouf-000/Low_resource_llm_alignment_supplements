@@ -1,6 +1,6 @@
 # Supplementary Material
 
-This archive contains the implementation used for the experiments presented in the accompanying AAAI submission.
+This archive contains the implementation used for the experiments presented in the accompanying ARR submission.
 
 ## Contents
 
@@ -13,8 +13,6 @@ This archive contains the implementation used for the experiments presented in t
 - Hyperparameter settings used in the experiments, are described in the technical supplementary material.
 - Python dependencies (`requirements.txt`).
 
-Model checkpoints across stages are **not included** due to the AAAI supplementary material size limit (50 MB). 
-But, can be submitted after annonymity is lifted.
 
 ---
 
