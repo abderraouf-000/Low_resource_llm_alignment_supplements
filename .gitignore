@@ -1,0 +1,13 @@
+data/Synthetic_preference_data/*
+reward_models__Llama-3.2-3B/*
+data/curriculum_*_PPO_scheduled_balanced_training_data.json
+data/curriculum_*_PPO_scheduled_weighted_training_data.json
+data/PPO_scheduled_training_data.json
+logs/*
+PPO/*
+reward_models/*
+Evaluations/Generations/*
+Ground_truth_based_optimized_synthetic_generation_legacy.py
+.env
+.ipynb_checkpoints/
+__pycache__/

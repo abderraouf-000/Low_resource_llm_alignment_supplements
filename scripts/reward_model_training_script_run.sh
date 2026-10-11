@@ -1,0 +1,42 @@
+#!/bin/bash
+set -euo pipefail
+python reward_model_base_training.py \
+    --model_name_or_path "meta-llama/Llama-3.2-3b" \
+    --trust_remote_code False \
+    --adapter_name "lora_default" \
+    --eval_size 200 \
+    --model_max_length 512 \
+    --num_train_epochs 1 \
+    --per_device_train_batch_size 4 \
+    --per_device_eval_batch_size 1 \
+    --gradient_accumulation_steps 2 \
+    --learning_rate 5e-5 \
+    --weight_decay 0.0 \
+    --warmup_ratio 0.03 \
+    --lr_scheduler_type "cosine" \
+    --max_grad_norm 0.3 \
+    --optim "paged_adamw_32bit" \
+    --fp16 True \
+    --bf16 False \
+    --logging_steps 300 \
+    --save_strategy "steps" \
+    --save_steps 3000 \
+    --save_total_limit 40 \
+    --report_to "none" \
+    --group_by_length True \
+    --eval_strategy "steps" \
+    --eval_steps 300 \
+    --remove_unused_columns False \
+    --gradient_checkpointing True \
+    --resume_from_training True \
+    --save_safetensors False \
+    --bits 4 \
+    --double_quant True \
+    --quant_type "nf4" \
+    --lora_r 64 \
+    --lora_alpha 16 \
+    --lora_dropout 0.0 \
+    --full_finetune False \
+    --adam8bit False \
+    --end_sequence_with_eos False\
+    "$@"

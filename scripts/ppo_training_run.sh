@@ -1,0 +1,73 @@
+#!/bin/bash
+set -euo pipefail
+
+python PPO_training_base.py \
+    --model_directory "meta-llama/Llama-3.2-3b" \
+    --reward_model_name_or_path "" \
+    --second_reward_model_name_or_path "" \
+    --base_model_name_or_path_for_fully_initialize "meta-llama/Llama-3.2-3b" \
+    --dataset_path "data/PPO_balanced_scheduled_training_data.json" \
+    --eval_dataset_path "data/PPO_balanced_scheduled_training_data.json" \
+    --policy_meta_prompt_pattern "prompts/policy_meta_prompt_pattern.txt" \
+    --reward_meta_prompt_pattern "prompts/sft_reward_prompt-2.txt" \
+    --principle_collection_path "prompts/Reward_model_dimensions/principle_collection_ppo.json" \
+    --max_principles 3\
+    --do_train True\
+    --total_epochs 4\
+    --learning_rate 3e-6\
+    --lr_scheduler_type "constant"\
+    --warmup_steps 5\
+    --weight_decay 0.0\
+    --max_grad_norm 1.0\
+    --fp16 True \
+    --gradient_checkpointing True \
+    --gradient_accumulation_steps 1 \
+    --per_device_train_batch_size 1 \
+    --optim "paged_adamw_32bit" \
+    --save_strategy "steps" \
+    --save_steps 25 \
+    --save_total_limit 40 \
+    --logging_steps 25 \
+    --report_to "none" \
+    --eval_strategy "steps" \
+    --eval_steps 100 \
+    --do_eval False \
+    --kl_coef 0.01 \
+    --target_kl 6.0 \
+    --cliprange 0.2 \
+    --cliprange_value 0.2 \
+    --vf_coef 0.1 \
+    --lam 1.0 \
+    --gamma 1.0 \
+    --noptepochs 2 \
+    --k_beta 0.1 \
+    --verifiable_reward False\
+    --kl_approximator "k1" \
+    --adaptive_kl False \
+    --query_len 256 \
+    --response_len 128 \
+    --model_max_length 512 \
+    --temperature 0.7 \
+    --rollout_per_device_batch_size 1 \
+    --rollout_accumulation_steps 1 \
+    --step_per_device_batch_size 1 \
+    --reward_model_bits 4 \
+    --penalty_reward_value -1.0 \
+    --bonus_answer_NOANSWER_questions 0.0 \
+    --early_stop_penalty -1.0 \
+    --whiten_rewards False \
+    --whitening_async_stats "full_batch" \
+    --init_value_with_reward True \
+    --clean_tokens_after_eos True \
+    --length_bonus_score 3.0 \
+    --length_bonus_upper_bound 0.5 \
+    --penalize_no_stop_token True \
+    --relative_stop_token_penalty True \
+    --enable_redteaming_principles True \
+    --enable_helpfulness_principles True \
+    --policy_model_bits 4 \
+    --use_gmm False \
+    --ddp_find_unused_parameters False \
+    --trust_remote_code True \
+    --remove_unused_columns False\
+    "$@"
